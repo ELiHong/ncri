@@ -234,10 +234,10 @@ function startPayment(serviceType, amount) {
   showPaymentModal(paymentData);
 }
 
-// 컨설팅 견적 요청
-function requestConsultation() {
-  // 견적 문의 폼 표시
-  showConsultationForm();
+// 서비스 문의 요청
+function requestConsultation(serviceType) {
+  // 서비스별 문의 폼 표시
+  showConsultationForm(serviceType);
 }
 
 // 기업 데모 요청  
@@ -305,9 +305,33 @@ function processStripePayment(paymentData) {
   }, 2000);
 }
 
-// 컨설팅 문의 폼 표시
-function showConsultationForm() {
-  const message = `프리미엄 NCS 컨설팅 서비스\n\n• 현황 진단 및 분석\n• 맞춤형 솔루션 설계\n• 인사제도 구축 지원\n• 교육훈련 체계 개발\n• 6개월 A/S 지원\n\n견적 문의를 위해 연락처로 문의해주세요.`;
+// 서비스 문의 폼 표시
+function showConsultationForm(serviceType) {
+  const serviceInfo = {
+    'education': {
+      title: 'NCS 온라인 교육 과정',
+      features: ['월 4회 라이브 강의', '무제한 동영상 시청', '학습 자료 다운로드', '수료증 발급', '1:1 질의응답']
+    },
+    'consulting': {
+      title: '프리미엄 NCS 컨설팅',
+      features: ['현황 진단 및 분석', '맞춤형 솔루션 설계', '인사제도 구축 지원', '교육훈련 체계 개발', '6개월 A/S 지원']
+    },
+    'certification': {
+      title: '전문 인증서 발급',
+      features: ['온라인 능력 평가', '전문가 검토', '디지털 인증서', '인쇄용 증명서', '3년간 유효']
+    },
+    'membership': {
+      title: 'NCRI 프리미엄 멤버십',
+      features: ['모든 온라인 교육 무제한', '월 1회 무료 상담', '전문 자료 무제한 다운로드', '세미나 우선 예약', '인증서 할인 혜택']
+    },
+    'research': {
+      title: '연구자료 구독',
+      features: ['월간 연구 보고서', '산업별 분석 자료', '정책 동향 분석', '해외 사례 연구', '전문가 인사이트']
+    }
+  };
+
+  const service = serviceInfo[serviceType] || serviceInfo['consulting'];
+  const message = `${service.title} 문의\n\n포함 서비스:\n${service.features.map(f => `• ${f}`).join('\n')}\n\n맞춤형 상담을 위해 연락처로 문의해주세요.`;
   alert(message);
   window.location.href = '#contact';
 }
