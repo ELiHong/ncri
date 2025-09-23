@@ -305,33 +305,9 @@ function processStripePayment(paymentData) {
   }, 2000);
 }
 
-// 서비스 문의 폼 표시
+// 교육세미나 문의 폼 표시
 function showConsultationForm(serviceType) {
-  const serviceInfo = {
-    'education': {
-      title: 'NCS 온라인 교육 과정',
-      features: ['월 4회 라이브 강의', '무제한 동영상 시청', '학습 자료 다운로드', '수료증 발급', '1:1 질의응답']
-    },
-    'consulting': {
-      title: '프리미엄 NCS 컨설팅',
-      features: ['현황 진단 및 분석', '맞춤형 솔루션 설계', '인사제도 구축 지원', '교육훈련 체계 개발', '6개월 A/S 지원']
-    },
-    'certification': {
-      title: '전문 인증서 발급',
-      features: ['온라인 능력 평가', '전문가 검토', '디지털 인증서', '인쇄용 증명서', '3년간 유효']
-    },
-    'membership': {
-      title: 'NCRI 프리미엄 멤버십',
-      features: ['모든 온라인 교육 무제한', '월 1회 무료 상담', '전문 자료 무제한 다운로드', '세미나 우선 예약', '인증서 할인 혜택']
-    },
-    'research': {
-      title: '연구자료 구독',
-      features: ['월간 연구 보고서', '산업별 분석 자료', '정책 동향 분석', '해외 사례 연구', '전문가 인사이트']
-    }
-  };
-
-  const service = serviceInfo[serviceType] || serviceInfo['consulting'];
-  const message = `${service.title} 문의\n\n포함 서비스:\n${service.features.map(f => `• ${f}`).join('\n')}\n\n맞춤형 상담을 위해 연락처로 문의해주세요.`;
+  const message = `NCS 전문 교육세미나 신청\n\n교육 과정:\n• NCS 기반 직무교육 과정\n• 산업별 맞춤 세미나\n• 온라인/오프라인 선택 가능\n• 전문가 강사진 구성\n• 수료증 발급\n• 교육자료 제공\n• 사후 Q&A 지원\n• 기업 맞춤 교육 가능\n\n교육 일정 및 비용 상담을 위해 연락처로 문의해주세요.`;
   alert(message);
   window.location.href = '#contact';
 }
