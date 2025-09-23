@@ -209,3 +209,146 @@
   document.addEventListener('scroll', navmenuScrollspy);
 
 })();
+
+/**
+ * NCRI 수익사업 결제 시스템
+ */
+
+// 결제 시작 함수
+function startPayment(serviceType, amount) {
+  // 로그인 확인
+  if (!isUserLoggedIn()) {
+    showLoginModal();
+    return;
+  }
+
+  // 결제 정보 설정
+  const paymentData = {
+    service: serviceType,
+    amount: amount,
+    currency: 'KRW',
+    user: getCurrentUser()
+  };
+
+  // 결제 모달 표시
+  showPaymentModal(paymentData);
+}
+
+// 컨설팅 견적 요청
+function requestConsultation() {
+  // 견적 문의 폼 표시
+  showConsultationForm();
+}
+
+// 기업 데모 요청  
+function requestEnterpriseDemo() {
+  // 데모 요청 폼 표시
+  showEnterpriseForm();
+}
+
+// 로그인 상태 확인
+function isUserLoggedIn() {
+  // 실제 구현에서는 세션이나 토큰 확인
+  return localStorage.getItem('ncri_user_token') !== null;
+}
+
+// 현재 사용자 정보 가져오기
+function getCurrentUser() {
+  const userToken = localStorage.getItem('ncri_user_token');
+  if (userToken) {
+    try {
+      return JSON.parse(localStorage.getItem('ncri_user_info'));
+    } catch (e) {
+      return null;
+    }
+  }
+  return null;
+}
+
+// 로그인 모달 표시
+function showLoginModal() {
+  alert('로그인이 필요한 서비스입니다.\n\n회원가입 후 NCRI의 다양한 수익사업 서비스를 이용하실 수 있습니다.');
+  // 실제 구현에서는 로그인 모달을 표시
+  window.location.href = '#contact';
+}
+
+// 결제 모달 표시
+function showPaymentModal(paymentData) {
+  const serviceNames = {
+    'education': 'NCS 온라인 교육 과정',
+    'certification': '전문 인증서 발급',
+    'membership': 'NCRI 프리미엄 멤버십',
+    'research': '연구자료 구독'
+  };
+
+  const serviceName = serviceNames[paymentData.service] || '서비스';
+  const message = `${serviceName}\n금액: ${paymentData.amount.toLocaleString()}원\n\n결제를 진행하시겠습니까?`;
+  
+  if (confirm(message)) {
+    // 실제 Stripe 결제 처리
+    processStripePayment(paymentData);
+  }
+}
+
+// Stripe 결제 처리
+function processStripePayment(paymentData) {
+  // 로딩 표시
+  showPaymentLoading();
+  
+  // 실제 구현에서는 Stripe API 호출
+  setTimeout(() => {
+    hidePaymentLoading();
+    alert('결제가 완료되었습니다!\n\n서비스 이용 안내가 등록하신 이메일로 발송됩니다.');
+    
+    // 결제 완료 후 처리
+    handlePaymentSuccess(paymentData);
+  }, 2000);
+}
+
+// 컨설팅 문의 폼 표시
+function showConsultationForm() {
+  const message = `프리미엄 NCS 컨설팅 서비스\n\n• 현황 진단 및 분석\n• 맞춤형 솔루션 설계\n• 인사제도 구축 지원\n• 교육훈련 체계 개발\n• 6개월 A/S 지원\n\n견적 문의를 위해 연락처로 문의해주세요.`;
+  alert(message);
+  window.location.href = '#contact';
+}
+
+// 기업 데모 요청 폼 표시
+function showEnterpriseForm() {
+  const message = `기업 맞춤 패키지 데모\n\n• 임직원 교육 프로그램\n• 조직 진단 및 분석\n• 맞춤형 교육 콘텐츠\n• 전담 컨설턴트 배정\n• 지속적인 관리 지원\n\n데모 요청을 위해 연락처로 문의해주세요.`;
+  alert(message);
+  window.location.href = '#contact';
+}
+
+// 결제 로딩 표시
+function showPaymentLoading() {
+  // 실제 구현에서는 로딩 스피너 표시
+  console.log('결제 처리 중...');
+}
+
+// 결제 로딩 숨기기
+function hidePaymentLoading() {
+  // 실제 구현에서는 로딩 스피너 숨기기
+  console.log('결제 처리 완료');
+}
+
+// 결제 성공 처리
+function handlePaymentSuccess(paymentData) {
+  // 결제 성공 추적
+  console.log('Payment successful:', paymentData);
+  
+  // Google Analytics 등 추적 코드
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'purchase', {
+      'transaction_id': Date.now().toString(),
+      'value': paymentData.amount,
+      'currency': 'KRW',
+      'items': [{
+        'item_id': paymentData.service,
+        'item_name': paymentData.service,
+        'category': 'NCRI Service',
+        'quantity': 1,
+        'price': paymentData.amount
+      }]
+    });
+  }
+}
