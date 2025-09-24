@@ -44,13 +44,14 @@
     <!-- Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet" />
 
-    <!-- =======================================================
-  * Template Name: Axis
-  * Template URL: https://bootstrapmade.com/axis-bootstrap-corporate-template/
-  * Updated: Sep 13 2025 with Bootstrap v5.3.8
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    <style>
+      .modal {
+        z-index: 1055 !important;
+      }
+      .modal-backdrop {
+        z-index: 1050 !important;
+      }
+    </style>
   </head>
 
   <body class="index-page">
@@ -698,9 +699,10 @@
                 </p>
                 <div class="consultation-info">
                   <p>
-                    <strong>📞 전화 상담:</strong> 02-123-4567 (평일 9:00-18:00)
+                    <strong>📞 전화 상담:</strong> 010-3206-4184 (평일
+                    9:00-18:00)
                   </p>
-                  <p><strong>📧 이메일 문의:</strong> info@ncri.or.kr</p>
+                  <p><strong>📧 이메일 문의:</strong> ncri.ceo@gmail.com</p>
                   <p><strong>💬 온라인 문의:</strong> 아래 문의 양식 이용</p>
                 </div>
               </div>
@@ -1139,7 +1141,7 @@
                   </div>
                   <div class="detail-content">
                     <span class="detail-label">이메일 문의</span>
-                    <span class="detail-value">info@ncskorea.org</span>
+                    <span class="detail-value">ncri.ceo@gmail.com</span>
                   </div>
                 </div>
 
@@ -1149,7 +1151,7 @@
                   </div>
                   <div class="detail-content">
                     <span class="detail-label">전화 문의</span>
-                    <span class="detail-value">02-3780-9000</span>
+                    <span class="detail-value">010-3206-4184</span>
                   </div>
                 </div>
 
@@ -1160,8 +1162,7 @@
                   <div class="detail-content">
                     <span class="detail-label">주소</span>
                     <span class="detail-value"
-                      >서울특별시 영등포구 여의도대로 83<br />NCRI
-                      (국가직무능력개발원)</span
+                      >경기도 안양시 평촌동 138<br />NCRI</span
                     >
                   </div>
                 </div>
@@ -1175,7 +1176,7 @@
                 </div>
 
                 <form
-                  action="forms/contact.php"
+                  action="https://script.google.com/macros/s/AKfycbwp6MRaMXGTUvlUjTqry7zt3O_D0z68kgftFnMAoTnm0IexmNaw10poeElyQ7ZWuyPqHA/exec"
                   method="post"
                   class="php-email-form"
                 >
@@ -1193,7 +1194,24 @@
                       </div>
                     </div>
                   </div>
-
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>전화번호</label>
+                        <input type="text" name="phone" required="" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>수강 과정</label>
+                        <input
+                          type="text"
+                          name="course"
+                          placeholder="예: NCS 교육세미나"
+                        />
+                      </div>
+                    </div>
+                  </div>
                   <div class="form-group">
                     <label>제목</label>
                     <input type="text" name="subject" required="" />
@@ -1229,6 +1247,81 @@
       </section>
       <!-- /Contact Section -->
     </main>
+
+    <!-- Course Enroll Modal -->
+    <div
+      class="modal fade"
+      id="courseEnrollModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">교육 세미나 신청</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="닫기"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="courseEnrollForm">
+              <input
+                type="text"
+                name="name"
+                placeholder="이름"
+                class="form-control mb-2"
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="이메일"
+                class="form-control mb-2"
+                required
+              />
+              <input
+                type="text"
+                name="phone"
+                placeholder="전화번호"
+                class="form-control mb-2"
+                required
+              />
+              <input
+                type="text"
+                id="courseNameInput"
+                name="course"
+                placeholder="수강 과정"
+                class="form-control mb-2"
+                required
+              />
+              <input
+                type="text"
+                id="courseSubjectInput"
+                name="subject"
+                placeholder="제목"
+                class="form-control mb-2"
+              />
+              <textarea
+                name="message"
+                placeholder="메시지"
+                class="form-control mb-2"
+              ></textarea>
+              <button type="submit" class="btn btn-primary w-100">
+                신청하기
+              </button>
+            </form>
+            <div class="loading" style="display: none">전송 중...</div>
+            <div class="error-message text-danger" style="display: none"></div>
+            <div class="sent-message text-success" style="display: none">
+              신청이 접수되었습니다!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <footer id="footer" class="footer dark-background">
       <div class="container footer-top">
@@ -1275,11 +1368,13 @@
             class="col-lg-3 col-md-12 footer-contact text-center text-md-start"
           >
             <h4>연락처</h4>
-            <p>서울특별시 영등포구 여의도대로 83</p>
-            <p>NCRI (국가직무능력개발원)</p>
+            <p>경기도 안양시 평촌동 138</p>
+            <p>NCRI</p>
             <p>대한민국</p>
-            <p class="mt-4"><strong>전화:</strong> <span>02-3780-9000</span></p>
-            <p><strong>이메일:</strong> <span>info@ncskorea.org</span></p>
+            <p class="mt-4">
+              <strong>전화:</strong> <span>010-3206-4184</span>
+            </p>
+            <p><strong>이메일:</strong> <span>ncri.ceo@gmail.com</span></p>
           </div>
         </div>
       </div>
@@ -1287,16 +1382,9 @@
       <div class="container copyright text-center mt-4">
         <p>
           © <span>저작권</span>
-          <strong class="px-1 sitename">NCRI (국가직무능력개발원)</strong>
+          <strong class="px-1 sitename">NCRI</strong>
           <span>All Rights Reserved</span>
         </p>
-        <div class="credits">
-          <!-- All the links in the footer should remain intact. -->
-          <!-- You can delete the links only if you've purchased the pro version. -->
-          <!-- Licensing information: https://bootstrapmade.com/license/ -->
-          <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div>
       </div>
     </footer>
 
@@ -1313,7 +1401,6 @@
 
     <!-- Vendor JS Files -->
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
     <script src="assets/vendor/aos/aos.js"></script>
     <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
     <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
@@ -1321,6 +1408,12 @@
     <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
     <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
+    <!-- NCRI Webhook 설정 (배포 시 아래 URL을 Apps Script 웹앱 URL로 교체하세요) -->
+    <script>
+      window.NCRI_ENROLL_WEBHOOK =
+        "https://script.google.com/macros/s/AKfycbwp6MRaMXGTUvlUjTqry7zt3O_D0z68kgftFnMAoTnm0IexmNaw10poeElyQ7ZWuyPqHA/exec";
+      // 예: https://script.google.com/macros/s/AKfycbx.../exec
+    </script>
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
   </body>

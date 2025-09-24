@@ -251,6 +251,182 @@ function openCourseModal(courseName) {
   }
 }
 
+// 수강신청 제출 처리
+(function attachCourseFormHandler() {
+  window.addEventListener("load", () => {
+    const form = document.getElementById("courseEnrollForm");
+    if (!form) return;
+
+    const loadingEl = form.querySelector(".loading");
+    const errorEl = form.querySelector(".error-message");
+    const sentEl = form.querySelector(".sent-message");
+
+    const setState = (state) => {
+      if (loadingEl)
+        loadingEl.style.display = state === "loading" ? "block" : "none";
+      if (errorEl) errorEl.style.display = state === "error" ? "block" : "none";
+      if (sentEl) sentEl.style.display = state === "sent" ? "block" : "none";
+    };
+
+    async function sendToWebhook(payload) {
+      const ENROLL_WEBHOOK = window.NCRI_ENROLL_WEBHOOK || null; // 설정 시 사용
+      if (!ENROLL_WEBHOOK) return { ok: false };
+      try {
+        const res = await fetch(ENROLL_WEBHOOK, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload),
+          mode: "no-cors",
+        });
+        // no-cors일 경우 opaque 응답 → 성공으로 간주
+        return { ok: res.ok || res.type === "opaque" };
+      } catch (e) {
+        return { ok: false };
+      }
+    }
+
+    function saveLocal(payload) {
+      try {
+        const key = "ncri_enrollments";
+        const prev = JSON.parse(localStorage.getItem(key) || "[]");
+        prev.push({ ...payload, savedAt: new Date().toISOString() });
+        localStorage.setItem(key, JSON.stringify(prev));
+      } catch (e) {
+        // ignore
+      }
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      setState("loading");
+      if (errorEl) errorEl.textContent = "";
+
+      const formData = new FormData(form);
+      const payload = {
+        name: formData.get("name")?.toString().trim(),
+        email: formData.get("email")?.toString().trim(),
+        phone: formData.get("phone")?.toString().trim(),
+        course: formData.get("course")?.toString().trim(),
+        subject: formData.get("subject")?.toString().trim(),
+        message: formData.get("message")?.toString().trim(),
+        userAgent: navigator.userAgent,
+        pageUrl: window.location.href,
+      };
+
+      // 간단 검증
+      if (
+        !payload.name ||
+        !payload.email ||
+        !payload.phone ||
+        !payload.course
+      ) {
+        setState("error");
+        if (errorEl) errorEl.textContent = "필수 항목을 모두 입력해주세요.";
+        return;
+      }
+
+      // 전송 시도 → 실패 시 로컬 저장
+      const result = await sendToWebhook(payload);
+      if (!result.ok) saveLocal(payload);
+
+      setState("sent");
+
+      // 몇 초 후 모달 닫기
+      setTimeout(() => {
+        const modalEl = document.getElementById("courseEnrollModal");
+        if (modalEl) {
+          const modal =
+            bootstrap.Modal.getInstance(modalEl) ||
+            new bootstrap.Modal(modalEl);
+          modal.hide();
+        }
+        form.reset();
+        setState(""); //메시지 영역 초기화
+      }, 2000);
+    });
+  });
+})();
+
+// 문의(Contact) 폼 제출 처리 (vendor validate.js 대신 웹훅 사용)
+(function attachContactFormHandler() {
+  window.addEventListener("load", () => {
+    const form = document.querySelector("#contact form.php-email-form");
+    if (!form) return;
+
+    const loadingEl = form.querySelector(".loading");
+    const errorEl = form.querySelector(".error-message");
+    const sentEl = form.querySelector(".sent-message");
+
+    const setState = (state, message) => {
+      if (loadingEl)
+        loadingEl.style.display = state === "loading" ? "block" : "none";
+      if (errorEl) {
+        errorEl.style.display = state === "error" ? "block" : "none";
+        if (message) errorEl.textContent = message;
+      }
+      if (sentEl) sentEl.style.display = state === "sent" ? "block" : "none";
+    };
+
+    async function sendToWebhook(payload) {
+      const ENROLL_WEBHOOK = window.NCRI_ENROLL_WEBHOOK || null;
+      if (!ENROLL_WEBHOOK) return { ok: false };
+      try {
+        const res = await fetch(ENROLL_WEBHOOK, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload),
+          mode: "no-cors",
+        });
+        return { ok: res.ok || res.type === "opaque" };
+      } catch (e) {
+        return { ok: false, error: e?.message || "Network Error" };
+      }
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      setState("loading");
+      if (errorEl) errorEl.textContent = "";
+
+      const formData = new FormData(form);
+      const payload = {
+        type: "contact",
+        name: formData.get("name")?.toString().trim(),
+        email: formData.get("email")?.toString().trim(),
+        phone: formData.get("phone")?.toString().trim(),
+        course: formData.get("course")?.toString().trim(),
+        subject: formData.get("subject")?.toString().trim(),
+        message: formData.get("message")?.toString().trim(),
+        userAgent: navigator.userAgent,
+        pageUrl: window.location.href,
+      };
+
+      if (
+        !payload.name ||
+        !payload.email ||
+        !payload.subject ||
+        !payload.message
+      ) {
+        setState("error", "필수 항목을 모두 입력해주세요.");
+        return;
+      }
+
+      const result = await sendToWebhook(payload);
+      if (!result.ok) {
+        setState(
+          "error",
+          "메시지 전송에 실패했습니다. 잠시 후 다시 시도해주세요."
+        );
+        return;
+      }
+
+      setState("sent");
+      form.reset();
+    });
+  });
+})();
+
 /**
  * NCRI 수익사업 결제 시스템
  */
@@ -277,7 +453,11 @@ function startPayment(serviceType, amount) {
 
 // 서비스 문의 요청
 function requestConsultation(serviceType) {
-  // 서비스별 문의 폼 표시
+  // 교육세미나는 수강신청 모달로 연결
+  if (serviceType === "seminar") {
+    openCourseModal("NCS 전문 교육세미나");
+    return;
+  }
   showConsultationForm(serviceType);
 }
 

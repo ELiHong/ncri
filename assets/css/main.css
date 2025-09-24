@@ -14,13 +14,15 @@
 --------------------------------------------------------------*/
 /* Fonts */
 :root {
-  --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Montserrat",  sans-serif;
-  --nav-font: "Poppins",  sans-serif;
+  --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "Montserrat", sans-serif;
+  --nav-font: "Poppins", sans-serif;
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
-:root { 
+:root {
   --background-color: #ffffff; /* Background color for the entire website, including individual sections */
   --default-color: #666666; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #000000; /* Color for headings, subheadings and title throughout the website */
@@ -31,7 +33,7 @@
 
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
-  --nav-color: #999999;  /* The default color of the main navmenu links */
+  --nav-color: #999999; /* The default color of the main navmenu links */
   --nav-hover-color: #000000; /* Applied to main navmenu links when they are hovered over or active */
   --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
   --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
@@ -67,6 +69,21 @@ body {
   color: var(--default-color);
   background-color: var(--background-color);
   font-family: var(--default-font);
+}
+
+/* Performance: avoid rendering off-screen sections until needed */
+.section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1000px;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 a {
@@ -172,7 +189,8 @@ h6 {
 
 .scrolled .header {
   isolation: isolate;
-  border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
 .scrolled .header::before {
@@ -233,7 +251,7 @@ h6 {
     padding-right: 0;
   }
 
-  .navmenu li:hover>a,
+  .navmenu li:hover > a,
   .navmenu .active,
   .navmenu .active:focus {
     color: var(--nav-hover-color);
@@ -272,11 +290,11 @@ h6 {
 
   .navmenu .dropdown ul a:hover,
   .navmenu .dropdown ul .active:hover,
-  .navmenu .dropdown ul li:hover>a {
+  .navmenu .dropdown ul li:hover > a {
     color: var(--nav-dropdown-hover-color);
   }
 
-  .navmenu .dropdown:hover>ul {
+  .navmenu .dropdown:hover > ul {
     opacity: 1;
     top: 100%;
     visibility: visible;
@@ -288,7 +306,7 @@ h6 {
     visibility: hidden;
   }
 
-  .navmenu .dropdown .dropdown:hover>ul {
+  .navmenu .dropdown .dropdown:hover > ul {
     opacity: 1;
     top: 0;
     left: -100%;
@@ -391,7 +409,7 @@ h6 {
     background-color: rgba(33, 37, 41, 0.1);
   }
 
-  .navmenu .dropdown>.dropdown-active {
+  .navmenu .dropdown > .dropdown-active {
     display: block;
     background-color: rgba(33, 37, 41, 0.03);
   }
@@ -418,7 +436,7 @@ h6 {
     transition: 0.3s;
   }
 
-  .mobile-nav-active .navmenu>ul {
+  .mobile-nav-active .navmenu > ul {
     display: block;
   }
 }
@@ -436,7 +454,8 @@ h6 {
 
 .footer .footer-top {
   padding-top: 50px;
-  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-top: 1px solid
+    color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
 .footer .footer-about .logo {
@@ -626,7 +645,8 @@ h6 {
 .page-title {
   text-align: center;
   padding: 40px 0 20px 0;
-  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-top: 1px solid
+    color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
 .page-title .breadcrumbs {
@@ -664,7 +684,11 @@ h6 {
   margin-right: 0.2rem;
 }
 
-.page-title .breadcrumbs .breadcrumb .breadcrumb-item+.breadcrumb-item::before {
+.page-title
+  .breadcrumbs
+  .breadcrumb
+  .breadcrumb-item
+  + .breadcrumb-item::before {
   color: color-mix(in srgb, var(--default-color), transparent 50%);
 }
 
@@ -717,7 +741,6 @@ section,
 }
 
 @media (max-width: 1199px) {
-
   section,
   .section {
     scroll-margin-top: 66px;
@@ -833,13 +856,15 @@ section,
   text-decoration: none;
   transition: all 0.3s ease;
   border: none;
-  box-shadow: 0 4px 15px color-mix(in srgb, var(--accent-color), transparent 80%);
+  box-shadow: 0 4px 15px
+    color-mix(in srgb, var(--accent-color), transparent 80%);
 }
 
 .hero .hero-cta .btn-primary:hover {
   background-color: color-mix(in srgb, var(--accent-color), black 10%);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px color-mix(in srgb, var(--accent-color), transparent 70%);
+  box-shadow: 0 8px 25px
+    color-mix(in srgb, var(--accent-color), transparent 70%);
 }
 
 .hero .hero-cta .btn-secondary {
@@ -899,7 +924,8 @@ section,
 
 .hero .hero-image img {
   border-radius: 12px;
-  box-shadow: 0 20px 60px color-mix(in srgb, var(--default-color), transparent 85%);
+  box-shadow: 0 20px 60px
+    color-mix(in srgb, var(--default-color), transparent 85%);
 }
 
 .hero .hero-image .floating-card {
@@ -909,7 +935,8 @@ section,
   background: var(--surface-color);
   padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 10px 40px color-mix(in srgb, var(--default-color), transparent 85%);
+  box-shadow: 0 10px 40px
+    color-mix(in srgb, var(--default-color), transparent 85%);
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -1093,7 +1120,8 @@ section,
 
 .about .image-wrapper img {
   border-radius: 12px;
-  box-shadow: 0 20px 60px color-mix(in srgb, var(--default-color), transparent 90%);
+  box-shadow: 0 20px 60px
+    color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
 .about .image-wrapper .floating-card {
@@ -1103,7 +1131,8 @@ section,
   background-color: var(--surface-color);
   border-radius: 12px;
   padding: 30px;
-  box-shadow: 0 15px 40px color-mix(in srgb, var(--default-color), transparent 85%);
+  box-shadow: 0 15px 40px
+    color-mix(in srgb, var(--default-color), transparent 85%);
   max-width: 280px;
 }
 
@@ -1169,7 +1198,11 @@ section,
 # Services Section
 --------------------------------------------------------------*/
 .services {
-  background-color: color-mix(in srgb, var(--background-color), var(--accent-color) 2%);
+  background-color: color-mix(
+    in srgb,
+    var(--background-color),
+    var(--accent-color) 2%
+  );
 }
 
 .services .service-item {
@@ -1191,7 +1224,11 @@ section,
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color), var(--heading-color) 30%));
+  background: linear-gradient(
+    90deg,
+    var(--accent-color),
+    color-mix(in srgb, var(--accent-color), var(--heading-color) 30%)
+  );
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s ease-in-out;
@@ -1199,7 +1236,8 @@ section,
 
 .services .service-item:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px color-mix(in srgb, var(--default-color), transparent 90%);
+  box-shadow: 0 20px 40px
+    color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
 .services .service-item:hover::before {
@@ -1221,7 +1259,11 @@ section,
 .services .service-item .service-icon {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, var(--accent-color), color-mix(in srgb, var(--accent-color), var(--heading-color) 20%));
+  background: linear-gradient(
+    135deg,
+    var(--accent-color),
+    color-mix(in srgb, var(--accent-color), var(--heading-color) 20%)
+  );
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1331,7 +1373,8 @@ section,
 
 .why-us .image-wrapper img {
   border-radius: 8px;
-  box-shadow: 0 20px 40px color-mix(in srgb, var(--default-color), transparent 85%);
+  box-shadow: 0 20px 40px
+    color-mix(in srgb, var(--default-color), transparent 85%);
   transition: transform 0.4s ease-in-out;
 }
 
@@ -1529,7 +1572,11 @@ section,
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(54, 144, 231, 0.85), rgba(54, 144, 231, 0.75));
+  background: linear-gradient(
+    135deg,
+    rgba(54, 144, 231, 0.85),
+    rgba(54, 144, 231, 0.75)
+  );
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1556,7 +1603,12 @@ section,
   transition: all 0.3s ease;
 }
 
-.portfolio .portfolio-card .project-visual .project-overlay .overlay-content a:hover {
+.portfolio
+  .portfolio-card
+  .project-visual
+  .project-overlay
+  .overlay-content
+  a:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
@@ -1638,7 +1690,12 @@ section,
   gap: 12px;
 }
 
-.portfolio .portfolio-card .project-details .project-meta .project-scope .scope-item {
+.portfolio
+  .portfolio-card
+  .project-details
+  .project-meta
+  .project-scope
+  .scope-item {
   font-size: 0.8rem;
   font-weight: 400;
   color: color-mix(in srgb, var(--default-color), transparent 40%);
@@ -1646,7 +1703,12 @@ section,
   position: relative;
 }
 
-.portfolio .portfolio-card .project-details .project-meta .project-scope .scope-item:not(:last-child)::after {
+.portfolio
+  .portfolio-card
+  .project-details
+  .project-meta
+  .project-scope
+  .scope-item:not(:last-child)::after {
   content: "·";
   position: absolute;
   right: -8px;
@@ -1703,7 +1765,11 @@ section,
   }
 }
 
-.portfolio .portfolio-conclusion .conclusion-content .conclusion-actions .primary-action {
+.portfolio
+  .portfolio-conclusion
+  .conclusion-content
+  .conclusion-actions
+  .primary-action {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -1717,21 +1783,39 @@ section,
   transition: all 0.3s ease;
 }
 
-.portfolio .portfolio-conclusion .conclusion-content .conclusion-actions .primary-action i {
+.portfolio
+  .portfolio-conclusion
+  .conclusion-content
+  .conclusion-actions
+  .primary-action
+  i {
   font-size: 0.9rem;
   transition: transform 0.3s ease;
 }
 
-.portfolio .portfolio-conclusion .conclusion-content .conclusion-actions .primary-action:hover {
+.portfolio
+  .portfolio-conclusion
+  .conclusion-content
+  .conclusion-actions
+  .primary-action:hover {
   background-color: color-mix(in srgb, var(--accent-color), black 10%);
   transform: translateY(-1px);
 }
 
-.portfolio .portfolio-conclusion .conclusion-content .conclusion-actions .primary-action:hover i {
+.portfolio
+  .portfolio-conclusion
+  .conclusion-content
+  .conclusion-actions
+  .primary-action:hover
+  i {
   transform: translateX(2px);
 }
 
-.portfolio .portfolio-conclusion .conclusion-content .conclusion-actions .secondary-action {
+.portfolio
+  .portfolio-conclusion
+  .conclusion-content
+  .conclusion-actions
+  .secondary-action {
   color: var(--default-color);
   font-size: 0.95rem;
   font-weight: 400;
@@ -1739,7 +1823,11 @@ section,
   position: relative;
 }
 
-.portfolio .portfolio-conclusion .conclusion-content .conclusion-actions .secondary-action::after {
+.portfolio
+  .portfolio-conclusion
+  .conclusion-content
+  .conclusion-actions
+  .secondary-action::after {
   content: "";
   position: absolute;
   bottom: -2px;
@@ -1750,11 +1838,19 @@ section,
   transition: width 0.3s ease;
 }
 
-.portfolio .portfolio-conclusion .conclusion-content .conclusion-actions .secondary-action:hover {
+.portfolio
+  .portfolio-conclusion
+  .conclusion-content
+  .conclusion-actions
+  .secondary-action:hover {
   color: var(--default-color);
 }
 
-.portfolio .portfolio-conclusion .conclusion-content .conclusion-actions .secondary-action:hover::after {
+.portfolio
+  .portfolio-conclusion
+  .conclusion-content
+  .conclusion-actions
+  .secondary-action:hover::after {
   width: 100%;
 }
 
@@ -1872,7 +1968,11 @@ section,
 # Pricing Section
 --------------------------------------------------------------*/
 .pricing {
-  background-color: color-mix(in srgb, var(--background-color), var(--accent-color) 2%);
+  background-color: color-mix(
+    in srgb,
+    var(--background-color),
+    var(--accent-color) 2%
+  );
 }
 
 .pricing-card {
@@ -1888,7 +1988,8 @@ section,
 
 .pricing-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px color-mix(in srgb, var(--default-color), transparent 85%);
+  box-shadow: 0 20px 40px
+    color-mix(in srgb, var(--default-color), transparent 85%);
 }
 
 .pricing-card.featured {
@@ -1969,7 +2070,8 @@ section,
   padding: 12px 0;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
 .pricing-features li:last-child {
@@ -1991,7 +2093,8 @@ section,
 .pricing-info {
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-top: 1px solid
+    color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
 .price-tag {
@@ -2028,7 +2131,11 @@ section,
   text-align: center;
   margin-top: 60px;
   padding: 40px;
-  background: color-mix(in srgb, var(--background-color), var(--accent-color) 1%);
+  background: color-mix(
+    in srgb,
+    var(--background-color),
+    var(--accent-color) 1%
+  );
   border-radius: 12px;
 }
 
@@ -2060,15 +2167,15 @@ section,
   .pricing-card {
     padding: 30px 20px;
   }
-  
+
   .amount {
     font-size: 36px;
   }
-  
+
   .pricing-card.featured {
     transform: none;
   }
-  
+
   .pricing-card.featured:hover {
     transform: translateY(-8px);
   }
@@ -2095,7 +2202,11 @@ section,
 }
 
 .testimonials .testimonial-item {
-  background: linear-gradient(135deg, var(--surface-color) 0%, color-mix(in srgb, var(--surface-color), var(--accent-color) 2%) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--surface-color) 0%,
+    color-mix(in srgb, var(--surface-color), var(--accent-color) 2%) 100%
+  );
   border-radius: 20px;
   padding: 0;
   height: 100%;
@@ -2112,7 +2223,11 @@ section,
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color), var(--heading-color) 30%));
+  background: linear-gradient(
+    90deg,
+    var(--accent-color),
+    color-mix(in srgb, var(--accent-color), var(--heading-color) 30%)
+  );
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s ease;
@@ -2139,7 +2254,11 @@ section,
   position: relative;
   text-align: center;
   padding: 30px 30px 20px;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--surface-color), var(--accent-color) 3%) 0%, var(--surface-color) 100%);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--surface-color), var(--accent-color) 3%) 0%,
+    var(--surface-color) 100%
+  );
 }
 
 .testimonials .testimonial-header img {
@@ -2278,7 +2397,9 @@ section,
   transition: all 0.3s ease;
 }
 
-.testimonials .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+.testimonials
+  .swiper-pagination
+  .swiper-pagination-bullet.swiper-pagination-bullet-active {
   background: var(--accent-color);
   transform: scale(1.2);
 }
@@ -2583,7 +2704,8 @@ section,
 .contact .form-wrapper .submit-btn:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 10%);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px color-mix(in srgb, var(--accent-color), transparent 70%);
+  box-shadow: 0 8px 25px
+    color-mix(in srgb, var(--accent-color), transparent 70%);
 }
 
 .contact .form-wrapper .submit-btn:hover i {
@@ -2663,7 +2785,11 @@ section,
   position: relative;
 }
 
-.portfolio-details .project-intro .intro-content .project-meta .project-type::after {
+.portfolio-details
+  .project-intro
+  .intro-content
+  .project-meta
+  .project-type::after {
   content: "•";
   position: absolute;
   right: -1rem;
@@ -2712,7 +2838,11 @@ section,
   bottom: 30px;
 }
 
-.portfolio-details .project-showcase .showcase-slider .swiper-pagination .swiper-pagination-bullet {
+.portfolio-details
+  .project-showcase
+  .showcase-slider
+  .swiper-pagination
+  .swiper-pagination-bullet {
   width: 12px;
   height: 12px;
   background-color: rgba(255, 255, 255, 0.5);
@@ -2720,7 +2850,11 @@ section,
   transition: all 0.3s ease;
 }
 
-.portfolio-details .project-showcase .showcase-slider .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+.portfolio-details
+  .project-showcase
+  .showcase-slider
+  .swiper-pagination
+  .swiper-pagination-bullet.swiper-pagination-bullet-active {
   background-color: white;
   transform: scale(1.2);
 }
@@ -2754,7 +2888,8 @@ section,
 
 .portfolio-details .project-details-grid .project-info .info-block {
   padding: 1.5rem 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
 .portfolio-details .project-details-grid .project-info .info-block:last-child {
@@ -2913,7 +3048,12 @@ section,
   gap: 0.75rem;
 }
 
-.portfolio-details .technologies-used .tech-stack .tech-group .tech-tags .tech-tag {
+.portfolio-details
+  .technologies-used
+  .tech-stack
+  .tech-group
+  .tech-tags
+  .tech-tag {
   padding: 0.5rem 1.25rem;
   background-color: color-mix(in srgb, var(--surface-color), transparent 50%);
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
@@ -2924,7 +3064,12 @@ section,
   transition: all 0.3s ease;
 }
 
-.portfolio-details .technologies-used .tech-stack .tech-group .tech-tags .tech-tag:hover {
+.portfolio-details
+  .technologies-used
+  .tech-stack
+  .tech-group
+  .tech-tags
+  .tech-tag:hover {
   background-color: var(--accent-color);
   border-color: var(--accent-color);
   color: var(--contrast-color);
@@ -2961,7 +3106,11 @@ section,
   text-align: center;
 }
 
-.portfolio-details .project-outcomes .outcomes-grid .outcome-card .outcome-stat {
+.portfolio-details
+  .project-outcomes
+  .outcomes-grid
+  .outcome-card
+  .outcome-stat {
   font-size: 3rem;
   font-weight: 300;
   color: var(--accent-color);
@@ -2969,14 +3118,19 @@ section,
   line-height: 1;
 }
 
-.portfolio-details .project-outcomes .outcomes-grid .outcome-card .outcome-label {
+.portfolio-details
+  .project-outcomes
+  .outcomes-grid
+  .outcome-card
+  .outcome-label {
   font-size: 1rem;
   color: color-mix(in srgb, var(--default-color), transparent 30%);
   line-height: 1.4;
 }
 
 .portfolio-details .project-navigation {
-  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-top: 1px solid
+    color-mix(in srgb, var(--default-color), transparent 90%);
   padding-top: 3rem;
 }
 
@@ -2999,14 +3153,22 @@ section,
 }
 
 .portfolio-details .project-navigation .nav-container .nav-item.prev .nav-label,
-.portfolio-details .project-navigation .nav-container .nav-item.next .nav-label {
+.portfolio-details
+  .project-navigation
+  .nav-container
+  .nav-item.next
+  .nav-label {
   font-size: 0.875rem;
   color: color-mix(in srgb, var(--default-color), transparent 50%);
   margin-bottom: 0.25rem;
 }
 
 .portfolio-details .project-navigation .nav-container .nav-item.prev .nav-title,
-.portfolio-details .project-navigation .nav-container .nav-item.next .nav-title {
+.portfolio-details
+  .project-navigation
+  .nav-container
+  .nav-item.next
+  .nav-title {
   font-size: 1.125rem;
   font-weight: 400;
 }
@@ -3093,7 +3255,11 @@ section,
     gap: 0.5rem;
   }
 
-  .portfolio-details .project-intro .intro-content .project-meta .project-type::after {
+  .portfolio-details
+    .project-intro
+    .intro-content
+    .project-meta
+    .project-type::after {
     display: none;
   }
 
@@ -3210,7 +3376,11 @@ section,
   align-items: flex-start;
 }
 
-.service-details .service-content .service-features .feature-item .feature-icon {
+.service-details
+  .service-content
+  .service-features
+  .feature-item
+  .feature-icon {
   flex-shrink: 0;
   width: 48px;
   height: 48px;
@@ -3221,18 +3391,33 @@ section,
   justify-content: center;
 }
 
-.service-details .service-content .service-features .feature-item .feature-icon i {
+.service-details
+  .service-content
+  .service-features
+  .feature-item
+  .feature-icon
+  i {
   font-size: 20px;
   color: var(--accent-color);
 }
 
-.service-details .service-content .service-features .feature-item .feature-content h4 {
+.service-details
+  .service-content
+  .service-features
+  .feature-item
+  .feature-content
+  h4 {
   font-size: 1.2rem;
   font-weight: 400;
   margin-bottom: 12px;
 }
 
-.service-details .service-content .service-features .feature-item .feature-content p {
+.service-details
+  .service-content
+  .service-features
+  .feature-item
+  .feature-content
+  p {
   font-size: 1rem;
   line-height: 1.7;
   color: color-mix(in srgb, var(--default-color), transparent 25%);
@@ -3245,14 +3430,22 @@ section,
   margin-bottom: 40px;
 }
 
-.service-details .service-content .service-process .process-timeline .process-step {
+.service-details
+  .service-content
+  .service-process
+  .process-timeline
+  .process-step {
   display: flex;
   gap: 24px;
   margin-bottom: 40px;
   position: relative;
 }
 
-.service-details .service-content .service-process .process-timeline .process-step:not(:last-child)::after {
+.service-details
+  .service-content
+  .service-process
+  .process-timeline
+  .process-step:not(:last-child)::after {
   content: "";
   position: absolute;
   left: 23px;
@@ -3262,7 +3455,12 @@ section,
   background: color-mix(in srgb, var(--default-color), transparent 85%);
 }
 
-.service-details .service-content .service-process .process-timeline .process-step .step-number {
+.service-details
+  .service-content
+  .service-process
+  .process-timeline
+  .process-step
+  .step-number {
   flex-shrink: 0;
   width: 48px;
   height: 48px;
@@ -3276,17 +3474,34 @@ section,
   font-size: 1rem;
 }
 
-.service-details .service-content .service-process .process-timeline .process-step .step-content {
+.service-details
+  .service-content
+  .service-process
+  .process-timeline
+  .process-step
+  .step-content {
   flex: 1;
 }
 
-.service-details .service-content .service-process .process-timeline .process-step .step-content h4 {
+.service-details
+  .service-content
+  .service-process
+  .process-timeline
+  .process-step
+  .step-content
+  h4 {
   font-size: 1.3rem;
   font-weight: 400;
   margin-bottom: 12px;
 }
 
-.service-details .service-content .service-process .process-timeline .process-step .step-content p {
+.service-details
+  .service-content
+  .service-process
+  .process-timeline
+  .process-step
+  .step-content
+  p {
   font-size: 1rem;
   line-height: 1.7;
   color: color-mix(in srgb, var(--default-color), transparent 25%);
@@ -3315,51 +3530,88 @@ section,
 
 .service-details .service-sidebar .service-info .service-details-list li {
   padding: 12px 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--default-color), transparent 90%);
   font-size: 0.95rem;
   line-height: 1.6;
 }
 
-.service-details .service-sidebar .service-info .service-details-list li:last-child {
+.service-details
+  .service-sidebar
+  .service-info
+  .service-details-list
+  li:last-child {
   border-bottom: none;
 }
 
-.service-details .service-sidebar .service-info .service-details-list li strong {
+.service-details
+  .service-sidebar
+  .service-info
+  .service-details-list
+  li
+  strong {
   color: var(--heading-color);
   font-weight: 500;
 }
 
-.service-details .service-sidebar .related-services .related-service-list .related-service-item {
+.service-details
+  .service-sidebar
+  .related-services
+  .related-service-list
+  .related-service-item {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 16px 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--default-color), transparent 90%);
   color: var(--default-color);
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
-.service-details .service-sidebar .related-services .related-service-list .related-service-item:last-child {
+.service-details
+  .service-sidebar
+  .related-services
+  .related-service-list
+  .related-service-item:last-child {
   border-bottom: none;
 }
 
-.service-details .service-sidebar .related-services .related-service-list .related-service-item:hover {
+.service-details
+  .service-sidebar
+  .related-services
+  .related-service-list
+  .related-service-item:hover {
   color: var(--accent-color);
   transform: translateX(4px);
 }
 
-.service-details .service-sidebar .related-services .related-service-list .related-service-item i {
+.service-details
+  .service-sidebar
+  .related-services
+  .related-service-list
+  .related-service-item
+  i {
   font-size: 16px;
   width: 20px;
 }
 
-.service-details .service-sidebar .related-services .related-service-list .related-service-item span {
+.service-details
+  .service-sidebar
+  .related-services
+  .related-service-list
+  .related-service-item
+  span {
   font-size: 0.95rem;
 }
 
 .service-details .service-sidebar .cta-widget {
-  background: linear-gradient(135deg, var(--accent-color), color-mix(in srgb, var(--accent-color), transparent 20%));
+  background: linear-gradient(
+    135deg,
+    var(--accent-color),
+    color-mix(in srgb, var(--accent-color), transparent 20%)
+  );
   color: var(--contrast-color);
 }
 
@@ -3391,7 +3643,8 @@ section,
 
 .service-details .service-sidebar .cta-widget .cta-content .btn-cta:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 16px color-mix(in srgb, var(--default-color), transparent 85%);
+  box-shadow: 0 8px 16px
+    color-mix(in srgb, var(--default-color), transparent 85%);
   color: var(--accent-color);
 }
 
@@ -3463,11 +3716,18 @@ section,
     gap: 16px;
   }
 
-  .service-details .service-content .process-timeline .process-step:not(:last-child)::after {
+  .service-details
+    .service-content
+    .process-timeline
+    .process-step:not(:last-child)::after {
     left: 19px;
   }
 
-  .service-details .service-content .process-timeline .process-step .step-number {
+  .service-details
+    .service-content
+    .process-timeline
+    .process-step
+    .step-number {
     width: 40px;
     height: 40px;
     font-size: 0.9rem;
@@ -3624,7 +3884,11 @@ section,
   }
 }
 
-.terms-of-service .tos-content .content-section .prohibited-list .prohibited-item {
+.terms-of-service
+  .tos-content
+  .content-section
+  .prohibited-list
+  .prohibited-item {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -3633,12 +3897,22 @@ section,
   border-radius: 12px;
 }
 
-.terms-of-service .tos-content .content-section .prohibited-list .prohibited-item i {
+.terms-of-service
+  .tos-content
+  .content-section
+  .prohibited-list
+  .prohibited-item
+  i {
   color: #dc3545;
   font-size: 1.2rem;
 }
 
-.terms-of-service .tos-content .content-section .prohibited-list .prohibited-item span {
+.terms-of-service
+  .tos-content
+  .content-section
+  .prohibited-list
+  .prohibited-item
+  span {
   font-size: 0.95rem;
   color: color-mix(in srgb, var(--default-color), transparent 20%);
 }
@@ -3669,7 +3943,12 @@ section,
   font-size: 0.95rem;
 }
 
-.terms-of-service .tos-content .content-section .disclaimer-box ul li:last-child {
+.terms-of-service
+  .tos-content
+  .content-section
+  .disclaimer-box
+  ul
+  li:last-child {
   margin-bottom: 0;
 }
 
@@ -3706,7 +3985,11 @@ section,
 }
 
 .terms-of-service .tos-contact .contact-box {
-  background: linear-gradient(135deg, color-mix(in srgb, var(--accent-color), transparent 95%) 0%, color-mix(in srgb, var(--accent-color), transparent 98%) 100%);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent-color), transparent 95%) 0%,
+    color-mix(in srgb, var(--accent-color), transparent 98%) 100%
+  );
   border-radius: 20px;
   padding: 40px;
   display: flex;
@@ -3764,7 +4047,11 @@ section,
   transition: all 0.3s;
 }
 
-.terms-of-service .tos-contact .contact-box .contact-content .contact-link:hover {
+.terms-of-service
+  .tos-contact
+  .contact-box
+  .contact-content
+  .contact-link:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
@@ -3866,7 +4153,11 @@ section,
 }
 
 .privacy .privacy-content .privacy-section .highlight-box {
-  background: linear-gradient(135deg, var(--accent-color), color-mix(in srgb, var(--accent-color), #000000 20%));
+  background: linear-gradient(
+    135deg,
+    var(--accent-color),
+    color-mix(in srgb, var(--accent-color), #000000 20%)
+  );
   padding: 40px;
   border-radius: 15px;
   text-align: center;
@@ -3904,7 +4195,11 @@ section,
   transition: all 0.3s ease;
 }
 
-.privacy .privacy-content .privacy-section .security-measures .measure-item:hover {
+.privacy
+  .privacy-content
+  .privacy-section
+  .security-measures
+  .measure-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
@@ -3980,28 +4275,61 @@ section,
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
-.privacy .privacy-content .privacy-section .cookie-types .table-responsive .table {
+.privacy
+  .privacy-content
+  .privacy-section
+  .cookie-types
+  .table-responsive
+  .table {
   margin: 0;
 }
 
-.privacy .privacy-content .privacy-section .cookie-types .table-responsive .table thead {
+.privacy
+  .privacy-content
+  .privacy-section
+  .cookie-types
+  .table-responsive
+  .table
+  thead {
   background: color-mix(in srgb, var(--accent-color), transparent 90%);
 }
 
-.privacy .privacy-content .privacy-section .cookie-types .table-responsive .table thead th {
+.privacy
+  .privacy-content
+  .privacy-section
+  .cookie-types
+  .table-responsive
+  .table
+  thead
+  th {
   border: none;
   color: var(--heading-color);
   font-weight: 600;
   padding: 15px 20px;
 }
 
-.privacy .privacy-content .privacy-section .cookie-types .table-responsive .table tbody td {
-  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+.privacy
+  .privacy-content
+  .privacy-section
+  .cookie-types
+  .table-responsive
+  .table
+  tbody
+  td {
+  border-top: 1px solid
+    color-mix(in srgb, var(--default-color), transparent 90%);
   padding: 15px 20px;
   color: var(--default-color);
 }
 
-.privacy .privacy-content .privacy-section .cookie-types .table-responsive .table tbody tr:hover {
+.privacy
+  .privacy-content
+  .privacy-section
+  .cookie-types
+  .table-responsive
+  .table
+  tbody
+  tr:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 97%);
 }
 
@@ -4055,7 +4383,7 @@ section,
     font-size: 20px;
   }
 
-  .privacy .privacy-content .privacy-section .security-measures .row>div {
+  .privacy .privacy-content .privacy-section .security-measures .row > div {
     margin-bottom: 20px;
   }
 
@@ -4078,7 +4406,11 @@ section,
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, var(--surface-color) 0%, color-mix(in srgb, var(--surface-color), var(--accent-color) 3%) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--surface-color) 0%,
+    color-mix(in srgb, var(--surface-color), var(--accent-color) 3%) 100%
+  );
 }
 
 .error-404 .error-content {
@@ -4168,7 +4500,8 @@ section,
 .error-404 .error-content .error-actions .btn-primary:hover {
   background-color: color-mix(in srgb, var(--accent-color), black 10%);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px color-mix(in srgb, var(--accent-color), transparent 70%);
+  box-shadow: 0 8px 25px
+    color-mix(in srgb, var(--accent-color), transparent 70%);
 }
 
 .error-404 .error-content .error-actions .btn-secondary {
@@ -4223,7 +4556,12 @@ section,
   align-items: center;
 }
 
-.error-404 .error-content .search-section .search-form .search-input-group .search-input {
+.error-404
+  .error-content
+  .search-section
+  .search-form
+  .search-input-group
+  .search-input {
   width: 100%;
   padding: 16px 60px 16px 20px;
   border: 2px solid color-mix(in srgb, var(--default-color), transparent 80%);
@@ -4234,17 +4572,32 @@ section,
   transition: all 0.3s ease;
 }
 
-.error-404 .error-content .search-section .search-form .search-input-group .search-input:focus {
+.error-404
+  .error-content
+  .search-section
+  .search-form
+  .search-input-group
+  .search-input:focus {
   outline: none;
   border-color: var(--accent-color);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color), transparent 85%);
 }
 
-.error-404 .error-content .search-section .search-form .search-input-group .search-input::placeholder {
+.error-404
+  .error-content
+  .search-section
+  .search-form
+  .search-input-group
+  .search-input::placeholder {
   color: color-mix(in srgb, var(--default-color), transparent 50%);
 }
 
-.error-404 .error-content .search-section .search-form .search-input-group .search-btn {
+.error-404
+  .error-content
+  .search-section
+  .search-form
+  .search-input-group
+  .search-btn {
   position: absolute;
   right: 8px;
   background: var(--accent-color);
@@ -4256,11 +4609,22 @@ section,
   transition: all 0.3s ease;
 }
 
-.error-404 .error-content .search-section .search-form .search-input-group .search-btn:hover {
+.error-404
+  .error-content
+  .search-section
+  .search-form
+  .search-input-group
+  .search-btn:hover {
   background-color: color-mix(in srgb, var(--accent-color), black 10%);
 }
 
-.error-404 .error-content .search-section .search-form .search-input-group .search-btn i {
+.error-404
+  .error-content
+  .search-section
+  .search-form
+  .search-input-group
+  .search-btn
+  i {
   font-size: 1rem;
 }
 
@@ -4295,7 +4659,11 @@ section,
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent-color) 0%, color-mix(in srgb, var(--accent-color), black 20%) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--accent-color) 0%,
+    color-mix(in srgb, var(--accent-color), black 20%) 100%
+  );
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4349,7 +4717,8 @@ section,
 
 .error-404 .helpful-links .link-item:hover .link-icon {
   transform: scale(1.1);
-  box-shadow: 0 15px 35px color-mix(in srgb, var(--accent-color), transparent 65%);
+  box-shadow: 0 15px 35px
+    color-mix(in srgb, var(--accent-color), transparent 65%);
 }
 
 @media (max-width: 992px) {
